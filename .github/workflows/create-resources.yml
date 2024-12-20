@@ -11,11 +11,10 @@ jobs:
     - name: Login to Azure
       uses: azure/login@v1
       with:
-        creds: ${{ secrets.AZURE_CREDENTIAL}}
+        creds: ${{ secrets.AZURE_CREDENTIAL }}
 
     - name: Create Azure Resources
-      run: 
+      run: |
         az group create --name ${{ vars.RESOURCE_GROUP }} --location ${{ vars.LOCATION }}
         az appservice plan create --name ${{ vars.PLAN_NAME }} --resource-group ${{ vars.RESOURCE_GROUP }} --sku F1 --is-linux
         az webapp create --resource-group ${{ vars.RESOURCE_GROUP }} --plan ${{ vars.PLAN_NAME }} --name ${{ vars.APP_NAME }} --runtime "NODE|20-lts" --startup-file "npm start"
-        
